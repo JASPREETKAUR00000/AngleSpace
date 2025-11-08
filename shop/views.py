@@ -13,13 +13,14 @@ def products_view(request):
     products = Product.objects.all()
     return render(request, "products.html", {"products": products})
 
-@login_required  # requires login to buy a product
+
 def buy(request, product_id):
     product = Product.objects.get(id=product_id)
     Order.objects.create(product=product)
     return redirect("/orders/")
 
-@login_required  # requires login to view orders
+
 def orders(request):
     orders = Order.objects.all()
     return render(request, "orders.html", {"orders": orders})
+
