@@ -104,6 +104,7 @@ def orders(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("shop.urls")),  # include shop app URLs
+    path("accounts/", include("django.contrib.auth.urls"))
 ]
 
 # --- Run Server ---
@@ -145,4 +146,5 @@ for p in products_to_add:
 
 
 execute_from_command_line(["manage.py", "runserver", "0.0.0.0:8000"])
+
 
