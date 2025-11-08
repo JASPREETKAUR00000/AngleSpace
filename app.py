@@ -16,50 +16,60 @@ settings.configure(
     SECRET_KEY="abc123",
     ROOT_URLCONF=__name__,
     ALLOWED_HOSTS=["*"],
-    INSTALLED_APPS=[
-    "django.contrib.admin",         # <-- Add this
-    "django.contrib.auth",          # <-- Required for admin authentication
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",      # <-- Required for admin login sessions
-    "django.contrib.messages",      # <-- Optional but recommended
-    "django.contrib.staticfiles",
-    "shop",  # app label
-]
-,MIDDLEWARE=[
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-],CSRF_TRUSTED_ORIGINS = [
-    "https://anglespace.onrender.com",
-    "http://localhost:8000",
-]
 
-,
+    INSTALLED_APPS=[
+        "django.contrib.admin",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.staticfiles",
+        "shop",
+    ],
+
+    MIDDLEWARE=[
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+    ],
+
     DATABASES={
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     },
+
+    # ✅ Proper placement of CSRF Trusted Origins
+    CSRF_TRUSTED_ORIGINS=[
+        "https://anglespace.onrender.com",
+        "http://localhost:8000",
+    ],
+
     TEMPLATES=[{
-    "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [os.path.join(BASE_DIR, "templates")],
-    "APP_DIRS": True,
-    "OPTIONS": {
-        "context_processors": [
-            "django.template.context_processors.debug",
-            "django.template.context_processors.request",  # required for admin
-            "django.contrib.auth.context_processors.auth",  # required for admin
-            "django.contrib.messages.context_processors.messages",  # required for admin
-        ],
-    },
-}],
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    }],
 
     DEFAULT_AUTO_FIELD="django.db.models.AutoField",
     STATIC_URL="/static/",
+
+    # ✅ Add login redirects to fix login/logout
+    LOGIN_URL="/accounts/login/",
+    LOGIN_REDIRECT_URL="/",
+    LOGOUT_REDIRECT_URL="/",
 )
 
 django.setup()
@@ -146,5 +156,6 @@ for p in products_to_add:
 
 
 execute_from_command_line(["manage.py", "runserver", "0.0.0.0:8000"])
+
 
 
