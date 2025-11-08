@@ -1,0 +1,71 @@
+name: Django Assignment CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  migrate-and-seed:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run migrations and seed products
+        run: |
+          python - <<EOF
+          import os
+          import django
+          from django.conf import settings
+
+          BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+          settings.configure(
+              DEBUG=True,
+              SECRET_KEY="abc123",
+              INSTALLED_APPS=[
+                  "django.contrib.contenttypes",
+                  "django.contrib.staticfiles",
+                  "shop",
+              ],
+              DATABASES={
+                  "default": {
+                      "ENGINE": "django.db.backends.sqlite3",
+                      "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+                  }
+              },
+              DEFAULT_AUTO_FIELD="django.db.models.AutoField",
+          )
+
+          django.setup()
+
+          from django.core.management import call_command
+          from shop.models import Product
+
+          call_command("makemigrations", "shop", interactive=False)
+          call_command("migrate", interactive=False)
+
+          products_to_add = [
+              {"name": "Laptop", "price": 899.99, "description": "A powerful laptop", "image": "https://images.pexels.com/photos/18105/pexels-photo.jpg"},
+              {"name": "Headphones", "price": 49.99, "description": "Noise-cancelling headphones", "image": "https://m.media-amazon.com/images/I/6151o2Kb8GL.jpg"},
+              # ... add more products here
+          ]
+
+          for p in products_to_add:
+              Product.objects.get_or_create(name=p["name"], defaults=p)
+
+          print("✅ Migrations and seeding completed!")
+          EOF
