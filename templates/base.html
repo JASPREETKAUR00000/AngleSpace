@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Simple Shop{% endblock %}</title>
+    <style>
+/* =========================================
+   GLOBAL BASE STYLES
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    background: #f1f3f6;
+    color: #222;
+    line-height: 1.6;
+}
+
+/* =========================================
+   HEADER STYLING
+========================================= */
+header {
+    background: #2874f0;
+    color: #fff;
+    padding: 16px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    color: #ffe500;
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* =========================================
+   HERO SECTION (HOME / ABOUT)
+========================================= */
+.hero-section {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+}
+
+.hero-section .text {
+    flex: 1;
+    padding-right: 30px;
+}
+
+.hero-section h2 {
+    font-size: 32px;
+    color: #212121;
+    margin-bottom: 15px;
+}
+
+.hero-section p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.hero-section a {
+    background: #2874f0;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(40, 116, 240, 0.3);
+    transition: 0.3s;
+}
+
+.hero-section a:hover {
+    background: #185adb;
+    transform: translateY(-2px);
+}
+
+.hero-section img {
+    width: 350px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* =========================================
+   PRODUCT CARD STYLING
+========================================= */
+.product {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+    display: inline-block;
+    vertical-align: top;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.product img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.product:hover img {
+    transform: scale(1.05);
+}
+
+.product h3 {
+    font-size: 15px;
+    margin: 10px 0 5px;
+    font-weight: 600;
+    color: #212121;
+}
+
+.product p {
+    font-size: 13px;
+    color: #666;
+    height: 36px;
+    overflow: hidden;
+}
+
+.product strong {
+    color: #388e3c;
+    font-weight: 700;
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+.btn {
+    display: inline-block;
+    background: #ff9f00;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #fb641b;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   TABLE STYLING
+========================================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+th {
+    background: #2874f0;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+footer {
+    background: #172337;
+    color: #fff;
+    padding: 25px 30px;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #ffe500;
+    text-decoration: none;
+    margin: 0 8px;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+@media (max-width: 1024px) {
+    .product {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    nav {
+        margin-top: 8px;
+    }
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-section .text {
+        padding-right: 0;
+    }
+    .hero-section img {
+        margin-top: 20px;
+    }
+    .product {
+        width: 48%;
+    }
+}
+
+@media (max-width: 480px) {
+    .product {
+        width: 100%;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛍️ AngleSpace</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/products/">Products</a>
+            <a href="/orders/">Orders</a>
+        </nav>
+    </header>
+<div style="max-width: 1200px; margin: 60px auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px;">
+    <!-- Left Side Content -->
+    <div style="flex: 1 1 45%; text-align: left; min-width: 300px;">
+        <h2 style="font-size: 36px; font-weight: bold; margin-bottom: 16px; color: #1e3a8a;">
+            Discover Amazing Products
+        </h2>
+        <p style="margin-bottom: 16px; color: #4a5568; line-height: 1.7; font-size: 16px;">
+            Browse our collection of stylish and high-quality fashion wear. Find everything you love — all in one place.
+        </p>
+    </div>
+
+    <!-- Right Side Large Image -->
+    <div style="flex: 1 1 50%; text-align: center; min-width: 300px;">
+        <img src="https://landingi.com/wp-content/uploads/2024/10/digital_marketing_ecommerce-optimized.webp" 
+             alt="Shopping Fashion" 
+             style="width: 550px; max-width: 100%; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.25);">
+    </div>
+</div>
+
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Simple Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

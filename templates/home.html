@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h2>Featured Products</h2>
+{% for p in products %}
+<div class="product">
+    <img src="{{ p.image }}" alt="{{ p.name }}" style="width:100%; border-radius:10px;">
+
+    <h3>{{ p.name }}</h3>
+    <p>{{ p.description }}</p>
+    <strong>${{ p.price }}</strong><br>
+    <a class="btn" onclick="alert('Ordered successfully!')" href="/buy/{{ p.id }}/">Buy Now</a>
+</div>
+{% empty %}
+<p>No products available.</p>
+{% endfor %}
+{% endblock %}

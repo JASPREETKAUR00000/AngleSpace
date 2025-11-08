@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+<h2>Your Orders</h2>
+{% if orders %}
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+    {% for o in orders %}
+    <tr>
+        <td>{{ o.product.name }}</td>
+        <td>{{ o.quantity }}</td>
+        <td>${{ o.product.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No orders yet.</p>
+{% endif %}
+{% endblock %}
