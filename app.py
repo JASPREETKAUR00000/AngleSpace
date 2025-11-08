@@ -32,7 +32,11 @@ settings.configure(
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+],CSRF_TRUSTED_ORIGINS = [
+    "https://anglespace.onrender.com",
+    "http://localhost:8000",
 ]
+
 ,
     DATABASES={
         "default": {
@@ -141,3 +145,4 @@ for p in products_to_add:
 
 
 execute_from_command_line(["manage.py", "runserver", "0.0.0.0:8000"])
+
